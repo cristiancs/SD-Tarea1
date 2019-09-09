@@ -1,0 +1,17 @@
+version: "3"
+networks:
+  sdtarea1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.1.0/24
+services:
+  app:
+    build: .
+    volumes:
+      - ./program:/app/
+    networks:
+      sdtarea1:
+        ipv4_address: "172.16.1.100"
+    ports:
+      - "5000:5000"
