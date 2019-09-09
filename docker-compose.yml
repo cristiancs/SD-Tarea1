@@ -6,12 +6,21 @@ networks:
       config:
         - subnet: 172.16.1.0/24
 services:
-  app:
-    build: .
+  server:
+    build: ./server
     volumes:
-      - ./program:/app/
+      - ./server:/app/
     networks:
       sdtarea1:
         ipv4_address: "172.16.1.100"
     ports:
       - "5000:5000"
+  client:
+    build: ./client
+    volumes:
+      - ./client:/app/
+    networks:
+      sdtarea1:
+        ipv4_address: "172.16.1.101"
+    depends_on:
+      - server
