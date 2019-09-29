@@ -1,0 +1,53 @@
+version: "3"
+networks:
+  sdtarea1:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.1.0/24
+services:
+  headnode:
+    build: ./headnode
+    volumes:
+      - ./headnode:/app/
+    networks:
+      sdtarea1:
+        ipv4_address: "172.16.1.100"
+    ports:
+      - "5000:5000"
+  datanode1:
+    build: ./datanode1
+    volumes:
+      - ./datanode1:/app/
+    networks:
+      sdtarea1:
+        ipv4_address: "172.16.1.101"
+    depends_on:
+      - headnode
+  datanode2:
+    build: ./datanode2
+    volumes:
+      - ./datanode2:/app/
+    networks:
+      sdtarea1:
+        ipv4_address: "172.16.1.102"
+    depends_on:
+      - headnode
+  datanode3:
+    build: ./datanode3
+    volumes:
+      - ./datanode3:/app/
+    networks:
+      sdtarea1:
+        ipv4_address: "172.16.1.103"
+    depends_on:
+      - headnode
+  client:
+    build: ./client
+    volumes:
+      - ./client:/app/
+    networks:
+      sdtarea1:
+        ipv4_address: "172.16.1.104"
+    depends_on:
+      - headnode    
