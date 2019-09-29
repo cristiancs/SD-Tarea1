@@ -26,7 +26,7 @@ Para pararlo, se debe presionar dos veces ctrl + c (Forzar cierre)
 
     docker-compose down
 
-# Actividad 1
+# Actividad 2
 
 Se encuentra en la carpeta parte2, dentro de esto las rutas y comandos son los siguientes
 
