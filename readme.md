@@ -34,7 +34,7 @@ Se encuentra en la carpeta parte2, dentro de esto las rutas y comandos son los s
 
 ### Logs headnode (Ubicación guardado archivo)
 
-    headnode/registro_server.txt.txt
+    headnode/registro_server.txt
 
 ### Logs headnode (Respuestas Heartbeat)
 
