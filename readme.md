@@ -57,3 +57,7 @@ Para pararlo, se debe presionar dos veces ctrl + c (Forzar cierre)
 ### Borrar
 
     docker-compose down
+
+### cliente_opcional.py
+
+Se adjunta un cliente externo llamado cliente_opcional.py, este permite utilizar una consola interactiva en python 3 en caso de que se deseen enviar más mensajes.
