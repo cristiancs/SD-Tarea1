@@ -27,17 +27,19 @@ def handle_client(c, client_address):
      # Leer data del cliente
         data = c.recv(1024)
         if not data:
+            print("Closing connection with", client_address)
             c.close()
             break
-
         # Elegir nodo activo
         node = randrange(3)
-        while nodes_active[node] != True:
+        while not nodes_active[node]:
+            #print("Cheking if node ", node, "is active")
             node = randrange(3)
         print("Seleccionado nodo ", node)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         s.connect((ips_nodes[node], TCP_PORT))
+
         s.send(data)
 
         response = s.recv(BUFFER_SIZE)
@@ -69,10 +71,11 @@ def operational():
     try:
         while True:
             time.sleep(5)
+            for i in range(len(nodes_active)):
+                nodes_active[i] = False
             sent = sock.sendto(message, multicast_group)
             while True:
-                for i in range(len(nodes_active)):
-                    nodes_active[i] = False
+
                 try:
                     data, server = sock.recvfrom(1024)
                     response = data.decode('utf-8').strip()
@@ -95,8 +98,9 @@ def operational():
         sock.close()
 
 
+start_new_thread(operational, ())
+
 while True:
     connection, client_address = s.accept()
     print('connection from', client_address)
     start_new_thread(handle_client, (connection, client_address,))
-    start_new_thread(operational, ())
